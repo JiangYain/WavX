@@ -32,21 +32,57 @@ print(f"Peak amplitude: {amplitude_info['peak_amplitude']} dB")
 print(f"Total RMS amplitude: {amplitude_info['total_rms_amplitude']} dB")
 ```
 
+### Generate and display audio spectrogram
+
+```python
+import wavx
+
+# Simple way: Display spectrogram with one function call
+wavx.analysis.spectrogram.display_spectrogram("your_audio_file.wav")
+
+# Advanced way: Step by step for more control
+# 1. Analyze spectrogram data
+spec_data = wavx.analysis.spectrogram.analyze_spectrogram(
+    audio_file="your_audio_file.wav",
+    channel=0,  # 0=left channel, 1=right channel
+    window_size=None,  # auto window size
+    overlap=0.75  # 75% window overlap
+)
+
+# 2. Print spectrogram information
+wavx.analysis.spectrogram.print_spectrogram_info(spec_data)
+
+# 3. Plot spectrogram with custom settings
+import matplotlib.pyplot as plt
+fig = wavx.analysis.spectrogram.plot_spectrogram(
+    spec_data=spec_data,
+    use_log_scale=True,  # use dB scale
+    freq_limit=8000,     # limit to 8kHz
+    figsize=(12, 4),     # figure size
+    save_path="spectrogram.png"  # save to file
+)
+plt.show()
+```
+
 ## Project Structure
 
 ```
 wavx/
 ├── docs/
-│   └── amplitude/
-│       └── amplitude_analysis.md  # Amplitude analysis documentation
+│   ├── amplitude/
+│   │   └── amplitude_analysis.md  # Amplitude analysis documentation
+│   └── analysis/
+│       └── spectrogram.md         # Spectrogram analysis documentation
 ├── examples/
-│   └── analyze_audio.py           # Example of audio analysis
+│   ├── analyze_audio.py           # Example of audio analysis
+│   └── display_spectrogram.py     # Example of spectrogram visualization
 ├── wavx/
 │   ├── __init__.py                # Package initialization
 │   ├── cli.py                     # Command line interface
 │   ├── analysis/
 │   │   ├── __init__.py            # Analysis module initialization
-│   │   └── amplitude.py           # Amplitude analysis functionality
+│   │   ├── amplitude.py           # Amplitude analysis functionality
+│   │   └── spectrogram.py         # Spectrogram analysis functionality
 │   ├── tests/
 │   │   ├── __init__.py            # Tests initialization
 │   │   └── test_amplitude.py      # Amplitude analysis tests
@@ -68,6 +104,12 @@ wavx amplitude path/to/audio.wav
 
 # With custom parameters
 wavx amplitude path/to/audio.wav --window 100 --no-dc
+
+# Generate and display spectrogram
+wavx spectrogram path/to/audio.wav
+
+# Spectrogram with custom parameters
+wavx spectrogram path/to/audio.wav --channel 1 --freq-limit 5000 --save output.png
 ```
 
 ## Future Extensions

@@ -33,6 +33,66 @@ print(f"峰值幅度: {amplitude_info['peak_amplitude']} dB")
 print(f"总计 RMS 振幅: {amplitude_info['total_rms_amplitude']} dB")
 ```
 
+### 生成并显示音频波形图
+
+```python
+import wavx
+
+# 简单方式：一步完成波形图显示
+wavx.analysis.waveform.display_waveform("your_audio_file.wav")
+
+# 高级方式：分步骤进行，获得更多控制
+# 1. 分析波形数据
+waveform_data = wavx.analysis.waveform.analyze_waveform(
+    audio_file="your_audio_file.wav",
+    channel=0  # 0=左声道, 1=右声道
+)
+
+# 2. 打印波形信息
+wavx.analysis.waveform.print_waveform_info(waveform_data)
+
+# 3. 使用自定义设置绘制波形图
+import matplotlib.pyplot as plt
+fig = wavx.analysis.waveform.plot_waveform(
+    waveform_data=waveform_data,
+    figsize=(12, 4),     # 图形大小
+    save_path="waveform.png"  # 保存到文件
+)
+plt.show()
+```
+
+### 生成并显示音频频谱图
+
+```python
+import wavx
+
+# 简单方式：一步完成频谱图显示
+wavx.analysis.spectrogram.display_spectrogram("your_audio_file.wav")
+
+# 高级方式：分步骤进行，获得更多控制
+# 1. 分析频谱图数据
+spec_data = wavx.analysis.spectrogram.analyze_spectrogram(
+    audio_file="your_audio_file.wav",
+    channel=0,  # 0=左声道, 1=右声道
+    window_size=None,  # 自动窗口大小
+    overlap=0.75  # 75%窗口重叠
+)
+
+# 2. 打印频谱图信息
+wavx.analysis.spectrogram.print_spectrogram_info(spec_data)
+
+# 3. 使用自定义设置绘制频谱图
+import matplotlib.pyplot as plt
+fig = wavx.analysis.spectrogram.plot_spectrogram(
+    spec_data=spec_data,
+    use_log_scale=True,  # 使用分贝刻度
+    freq_limit=8000,     # 限制到8kHz
+    figsize=(12, 4),     # 图形大小
+    save_path="spectrogram.png"  # 保存到文件
+)
+plt.show()
+```
+
 ### 将音频文件标准化到目标RMS电平
 
 ```python
@@ -57,17 +117,21 @@ wavx/
 ├── docs/
 │   ├── amplitude/
 │   │   └── amplitude_analysis.md  # 振幅分析文档
+│   ├── analysis/
+│   │   └── spectrogram.md         # 频谱图分析文档
 │   └── processing/
 │       └── normalization.md       # RMS标准化文档
 ├── examples/
 │   ├── analyze_audio.py           # 音频分析示例
+│   ├── display_spectrogram.py     # 频谱图可视化示例
 │   └── normalize_audio.py         # 音频标准化示例
 ├── wavx/
 │   ├── __init__.py                # 包初始化
 │   ├── cli.py                     # 命令行界面
 │   ├── analysis/
 │   │   ├── __init__.py            # 分析模块初始化
-│   │   └── amplitude.py           # 振幅分析功能
+│   │   ├── amplitude.py           # 振幅分析功能
+│   │   └── spectrogram.py         # 频谱图分析功能
 │   ├── processing/
 │   │   ├── __init__.py            # 处理模块初始化
 │   │   └── normalization.py       # RMS标准化功能
@@ -91,8 +155,17 @@ wavx/
 # 基本振幅分析
 wavx amplitude path/to/audio.wav
 
-# 使用自定义参数
-wavx amplitude path/to/audio.wav --window 100 --no-dc
+# 生成并显示波形图
+wavx waveform path/to/audio.wav
+
+# 带自定义参数的波形图
+wavx waveform path/to/audio.wav --channel 1 --save output.png
+
+# 生成并显示频谱图
+wavx spectrogram path/to/audio.wav
+
+# 带自定义参数的频谱图
+wavx spectrogram path/to/audio.wav --channel 1 --freq-limit 5000 --save output.png
 
 # RMS标准化
 wavx normalize input.wav output.wav --target -18.0
@@ -128,6 +201,7 @@ wavx normalize input.wav output.wav --reference sine --freq 500
 - v0.1.2 (2025-03-20): 添加RMS标准化功能
 - v0.1.3 (2025-03-20): 添加pip安装后显示WAVX LOGO功能
 - v0.1.4 (2025-03-21): 添加频谱图分析和可视化功能
+- v0.1.5 (2025-03-22): 添加波形图可视化功能
 
 ## 贡献
 

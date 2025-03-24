@@ -29,7 +29,7 @@ def main(args: Optional[List[str]] = None) -> int:
         int: 退出码。0表示成功，非零表示错误
     """
     parser = argparse.ArgumentParser(
-        description=f"WavX v{__version__} - 音频分析和处理工具库",
+        description=f"WavX v{__version__} - A Simple Acoustic Agile Processing Library",
         formatter_class=argparse.RawDescriptionHelpFormatter
     )
     

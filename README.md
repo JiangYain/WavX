@@ -33,6 +33,66 @@ print(f"Peak amplitude: {amplitude_info['peak_amplitude']} dB")
 print(f"Total RMS amplitude: {amplitude_info['total_rms_amplitude']} dB")
 ```
 
+### Generate and display audio waveform
+
+```python
+import wavx
+
+# Simple way: Display waveform with one function call
+wavx.analysis.waveform.display_waveform("your_audio_file.wav")
+
+# Advanced way: Step by step for more control
+# 1. Analyze waveform data
+waveform_data = wavx.analysis.waveform.analyze_waveform(
+    audio_file="your_audio_file.wav",
+    channel=0  # 0=left channel, 1=right channel
+)
+
+# 2. Print waveform information
+wavx.analysis.waveform.print_waveform_info(waveform_data)
+
+# 3. Plot waveform with custom settings
+import matplotlib.pyplot as plt
+fig = wavx.analysis.waveform.plot_waveform(
+    waveform_data=waveform_data,
+    figsize=(12, 4),     # figure size
+    save_path="waveform.png"  # save to file
+)
+plt.show()
+```
+
+### Generate and display audio spectrogram
+
+```python
+import wavx
+
+# Simple way: Display spectrogram with one function call
+wavx.analysis.spectrogram.display_spectrogram("your_audio_file.wav")
+
+# Advanced way: Step by step for more control
+# 1. Analyze spectrogram data
+spec_data = wavx.analysis.spectrogram.analyze_spectrogram(
+    audio_file="your_audio_file.wav",
+    channel=0,  # 0=left channel, 1=right channel
+    window_size=None,  # auto window size
+    overlap=0.75  # 75% window overlap
+)
+
+# 2. Print spectrogram information
+wavx.analysis.spectrogram.print_spectrogram_info(spec_data)
+
+# 3. Plot spectrogram with custom settings
+import matplotlib.pyplot as plt
+fig = wavx.analysis.spectrogram.plot_spectrogram(
+    spec_data=spec_data,
+    use_log_scale=True,  # use dB scale
+    freq_limit=8000,     # limit to 8kHz
+    figsize=(12, 4),     # figure size
+    save_path="spectrogram.png"  # save to file
+)
+plt.show()
+```
+
 ### Normalize audio file to target RMS level
 
 ```python
@@ -57,17 +117,21 @@ wavx/
 ├── docs/
 │   ├── amplitude/
 │   │   └── amplitude_analysis.md  # Amplitude analysis documentation
+│   ├── analysis/
+│   │   └── spectrogram.md         # Spectrogram analysis documentation
 │   └── processing/
 │       └── normalization.md       # RMS normalization documentation
 ├── examples/
 │   ├── analyze_audio.py           # Example of audio analysis
+│   ├── display_spectrogram.py     # Example of spectrogram visualization
 │   └── normalize_audio.py         # Example of audio normalization
 ├── wavx/
 │   ├── __init__.py                # Package initialization
 │   ├── cli.py                     # Command line interface
 │   ├── analysis/
 │   │   ├── __init__.py            # Analysis module initialization
-│   │   └── amplitude.py           # Amplitude analysis functionality
+│   │   ├── amplitude.py           # Amplitude analysis functionality
+│   │   └── spectrogram.py         # Spectrogram analysis functionality
 │   ├── processing/
 │   │   ├── __init__.py            # Processing module initialization
 │   │   └── normalization.py       # RMS normalization functionality
@@ -91,8 +155,17 @@ After installation, you can use WavX from the command line:
 # Basic amplitude analysis
 wavx amplitude path/to/audio.wav
 
-# With custom parameters
-wavx amplitude path/to/audio.wav --window 100 --no-dc
+# Generate and display waveform
+wavx waveform path/to/audio.wav
+
+# Waveform with custom parameters
+wavx waveform path/to/audio.wav --channel 1 --save output.png
+
+# Generate and display spectrogram
+wavx spectrogram path/to/audio.wav
+
+# Spectrogram with custom parameters
+wavx spectrogram path/to/audio.wav --channel 1 --freq-limit 5000 --save output.png
 
 # RMS normalization
 wavx normalize input.wav output.wav --target -18.0
@@ -128,6 +201,7 @@ The modular design allows easy extensions:
 - v0.1.2 (2025-03-20): Added RMS normalization functionality
 - v0.1.3 (2025-03-20): Added WAVX LOGO display after pip install
 - v0.1.4 (2025-03-21): Added spectrogram analysis and visualization
+- v0.1.5 (2025-03-22): Added waveform visualization functionality
 
 ## Contributing
 

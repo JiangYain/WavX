@@ -13,19 +13,30 @@ from scipy.io import wavfile
 from scipy import signal
 import soundfile as sf
 from typing import Dict, Any, Tuple, Optional
+from matplotlib import font_manager as fm
+
+# 添加Times New Roman字体设置
+def set_plot_style():
+    """
+    设置绘图样式，使用Times New Roman字体
+    """
+    # 设置全局字体为Times New Roman
+    plt.rcParams['font.family'] = 'Times New Roman'
+    plt.rcParams['mathtext.fontset'] = 'stix'  # 数学公式字体
+    plt.rcParams['axes.unicode_minus'] = False  # 正确显示负号
 
 
 def analyze_spectrogram(audio_file: str, 
                         channel: int = 0, 
                         window_size: Optional[int] = None,
-                        overlap: float = 0.75) -> Dict[str, Any]:
+                        overlap: float = 0.5) -> Dict[str, Any]:
     """
     分析音频文件的频谱图
 
     参数:
         audio_file: 音频文件路径
         channel: 要分析的通道 (0=左, 1=右)
-        window_size: 窗口大小 (None 表示自动)
+        window_size: 窗口大小 (None 表示使用默认值)
         overlap: 窗口重叠比例 (0.0-1.0)
 
     返回:
@@ -50,9 +61,9 @@ def analyze_spectrogram(audio_file: str,
             channel = 0  # 如果指定的通道不可用，默认使用第一个
         data = data[:, channel]
 
-    # 设置默认窗口大小
+    # 使用默认窗口参数
     if window_size is None:
-        window_size = int(sample_rate * 0.025)  # 默认25ms窗口
+        window_size = 256  # 使用scipy.signal.spectrogram的默认值
 
     # 计算频谱
     frequencies, times, Sxx = signal.spectrogram(
@@ -79,23 +90,31 @@ def plot_spectrogram(spec_data: Dict[str, Any],
                      use_log_scale: bool = True,
                      freq_limit: Optional[int] = None,
                      figsize: Tuple[int, int] = (12, 4),
-                     save_path: Optional[str] = None) -> plt.Figure:
+                     save_path: Optional[str] = None,
+                     vmin: float = -100,  # 添加最小值参数
+                     vmax: float = -50    # 添加最大值参数
+                     ) -> plt.Figure:
     """
-    绘制音频的频谱图
+    Plot spectrogram of audio data
 
-    参数:
-        spec_data: 从analyze_spectrogram获取的频谱图数据
-        use_log_scale: 是否使用对数刻度显示
-        freq_limit: 频率上限 (Hz)，None表示显示全部
-        figsize: 图像大小
-        save_path: 如果提供，保存图像到此路径
+    Args:
+        spec_data: Spectrogram data from analyze_spectrogram
+        use_log_scale: Whether to use log scale display
+        freq_limit: Frequency limit (Hz), None for full range
+        figsize: Figure size
+        save_path: If provided, save figure to this path
+        vmin: Minimum value for color scale (dB)
+        vmax: Maximum value for color scale (dB)
 
-    返回:
-        matplotlib图形对象
+    Returns:
+        matplotlib figure object
     """
     frequencies = spec_data['frequencies']
     times = spec_data['times']
     Sxx = spec_data['spectrogram']
+    
+    # 设置绘图样式
+    set_plot_style()
     
     # 创建图形
     fig = plt.figure(figsize=figsize)
@@ -110,20 +129,25 @@ def plot_spectrogram(spec_data: Dict[str, Any],
     if use_log_scale:
         # 加入1e-10防止log(0)
         display_data = 10 * np.log10(Sxx + 1e-10)
-        colorbar_label = '强度 [dB]'
+        colorbar_label = 'Intensity [dB]'  # 改为 Intensity
     else:
         display_data = Sxx
-        colorbar_label = '强度'
+        colorbar_label = 'Intensity'
     
-    # 绘制频谱图
-    plt.pcolormesh(times, frequencies, display_data, shading='gouraud')
+    # 绘制频谱图，添加颜色范围控制
+    plt.pcolormesh(times, frequencies, display_data, 
+                  shading='gouraud',
+                  vmin=vmin,
+                  vmax=vmax)
     plt.colorbar(label=colorbar_label)
     
     # 设置标题和标签
     audio_file = spec_data['audio_file'].split("/")[-1]
-    plt.title(f"频谱图: {audio_file}")
-    plt.xlabel("时间 [秒]")
-    plt.ylabel("频率 [Hz]")
+    plt.title(f"Spectrogram: {audio_file}", pad=10)
+    plt.xlabel("Time [s]")
+    plt.ylabel("Frequency [Hz]")
+    
+    # 优化布局
     plt.tight_layout()
     
     # 保存图像
@@ -140,14 +164,14 @@ def print_spectrogram_info(spec_data: Dict[str, Any]) -> None:
     参数:
         spec_data: 从analyze_spectrogram获取的频谱图数据
     """
-    print(f"音频文件: {spec_data['audio_file']}")
-    print(f"采样率: {spec_data['sample_rate']} Hz")
-    print(f"数据长度: {len(spec_data['data'])} 样本")
-    print(f"持续时间: {len(spec_data['data']) / spec_data['sample_rate']:.2f} 秒")
-    print(f"频率分辨率: {len(spec_data['frequencies'])} 点")
-    print(f"时间分辨率: {len(spec_data['times'])} 帧")
-    print(f"窗口大小: {spec_data['window_size']} 样本")
-    print(f"重叠比例: {spec_data['overlap']:.2f}")
+    print(f"Audio file: {spec_data['audio_file']}")
+    print(f"Sample rate: {spec_data['sample_rate']} Hz")
+    print(f"Data length: {len(spec_data['data'])} samples")
+    print(f"Duration: {len(spec_data['data']) / spec_data['sample_rate']:.2f} seconds")
+    print(f"Frequency resolution: {len(spec_data['frequencies'])} points")
+    print(f"Time resolution: {len(spec_data['times'])} frames")
+    print(f"Window size: {spec_data['window_size']} samples")
+    print(f"Overlap ratio: {spec_data['overlap']:.2f}")
 
 
 def display_spectrogram(audio_file: str, 
@@ -159,17 +183,17 @@ def display_spectrogram(audio_file: str,
                         figsize: Tuple[int, int] = (12, 4),
                         save_path: Optional[str] = None) -> None:
     """
-    分析并显示音频文件的频谱图
+    Analyze and display spectrogram of audio file
     
-    参数:
-        audio_file: 音频文件路径
-        channel: 要分析的通道 (0=左, 1=右)
-        window_size: 窗口大小 (None 表示自动)
-        overlap: 窗口重叠比例 (0.0-1.0)
-        use_log_scale: 是否使用对数刻度显示
-        freq_limit: 频率上限 (Hz)，None表示显示全部
-        figsize: 图像大小
-        save_path: 如果提供，保存图像到此路径
+    Args:
+        audio_file: Path to audio file
+        channel: Channel to analyze (0=left, 1=right)
+        window_size: Window size (None for auto)
+        overlap: Window overlap ratio (0.0-1.0)
+        use_log_scale: Whether to use log scale display
+        freq_limit: Frequency limit (Hz), None for full range
+        figsize: Figure size
+        save_path: If provided, save figure to this path
     """
     # 分析频谱图
     spec_data = analyze_spectrogram(

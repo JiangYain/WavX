@@ -9,6 +9,9 @@ WavX 音频分析模块
 
 from . import amplitude
 from . import spectrogram
+from . import waveform
 
-# 为方便使用，直接导出一些常用函数
+# Export commonly used functions for convenience
 from .amplitude import analyze_amplitude, print_amplitude_info
+from .spectrogram import analyze_spectrogram, display_spectrogram
+from .waveform import analyze_waveform, display_waveform

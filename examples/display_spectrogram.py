@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 
 """
-WavX 频谱图示例
+WavX Spectrogram Example
 
-演示如何使用WavX生成和显示音频文件的频谱图
+Demonstrates how to generate and display spectrograms using WavX
 """
 
 import os
@@ -12,24 +12,24 @@ import sys
 import argparse
 import matplotlib.pyplot as plt
 
-# 添加项目根目录到Python路径，以便能够导入wavx包
+# Add project root to Python path to import wavx package
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import wavx
 
 
 def main():
-    # 解析命令行参数
-    parser = argparse.ArgumentParser(description='WavX 频谱图示例')
-    parser.add_argument('audio_file', help='音频文件路径')
-    parser.add_argument('--channel', '-c', type=int, default=0, help='分析通道 (0=左声道, 1=右声道)')
-    parser.add_argument('--freq-limit', '-f', type=int, default=8000, help='频率上限 (Hz)')
-    parser.add_argument('--linear', action='store_true', help='使用线性刻度而不是对数刻度')
-    parser.add_argument('--save', '-s', help='保存频谱图的文件路径 (例如: spectrogram.png)')
+    # Parse command line arguments
+    parser = argparse.ArgumentParser(description='WavX Spectrogram Example')
+    parser.add_argument('audio_file', help='Path to audio file')
+    parser.add_argument('--channel', '-c', type=int, default=0, help='Analysis channel (0=left, 1=right)')
+    parser.add_argument('--freq-limit', '-f', type=int, default=8000, help='Frequency limit (Hz)')
+    parser.add_argument('--linear', action='store_true', help='Use linear scale instead of log scale')
+    parser.add_argument('--save', '-s', help='Path to save spectrogram (e.g., spectrogram.png)')
     args = parser.parse_args()
 
-    # 基本方法：直接分析并显示频谱图
-    print("方法1: 使用一体化函数显示频谱图")
+    # Basic method: Direct analysis and display
+    print("Method 1: Using integrated function to display spectrogram")
     wavx.analysis.spectrogram.display_spectrogram(
         audio_file=args.audio_file,
         channel=args.channel,
@@ -38,31 +38,31 @@ def main():
         save_path=args.save
     )
 
-    # 高级方法：分步处理
-    print("\n方法2: 分步处理频谱图")
-    # 1. 分析频谱图
+    # Advanced method: Step by step processing
+    print("\nMethod 2: Step by step spectrogram processing")
+    # 1. Analyze spectrogram
     spec_data = wavx.analysis.spectrogram.analyze_spectrogram(
         audio_file=args.audio_file,
         channel=args.channel
     )
     
-    # 2. 打印频谱图信息
+    # 2. Print spectrogram information
     wavx.analysis.spectrogram.print_spectrogram_info(spec_data)
     
-    # 3. 绘制频谱图
+    # 3. Plot spectrogram
     fig = wavx.analysis.spectrogram.plot_spectrogram(
         spec_data=spec_data,
         use_log_scale=not args.linear,
         freq_limit=args.freq_limit,
         figsize=(10, 6),
-        save_path=None  # 这里不保存，只显示
+        save_path=None  # Don't save, just display
     )
     
-    # 4. 添加自定义绘图元素
-    plt.axhline(y=1000, color='r', linestyle='--', label='1kHz参考线')
+    # 4. Add custom plot elements
+    plt.axhline(y=1000, color='r', linestyle='--', label='1kHz Reference')
     plt.legend()
     
-    # 5. 显示修改后的图像
+    # 5. Display modified plot
     plt.tight_layout()
     plt.show()
 
