@@ -40,22 +40,22 @@ def main(args: Optional[List[str]] = None) -> int:
     )
     
     # 创建子命令
-    subparsers = parser.add_subparsers(dest='command', help='可用命令')
+    subparsers = parser.add_subparsers(dest='command', help='Available Commands')
     
     # 振幅分析命令
-    amplitude_parser = subparsers.add_parser('amplitude', help='分析音频文件的振幅信息')
+    amplitude_parser = subparsers.add_parser('amplitude', help='Analyze audio file amplitude information')
     amplitude_parser.add_argument('audio_file', help='要分析的音频文件路径')
     amplitude_parser.add_argument('--window', type=float, default=50.0, help='RMS窗口大小(毫秒)')
     amplitude_parser.add_argument('--no-dc', action='store_false', dest='consider_dc', help='不考虑DC偏移')
     
     # 波形图命令
-    waveform_parser = subparsers.add_parser('waveform', help='分析并显示音频文件的波形图')
+    waveform_parser = subparsers.add_parser('waveform', help='Analyze and display audio file waveform')
     waveform_parser.add_argument('audio_file', help='要分析的音频文件路径')
     waveform_parser.add_argument('--channel', '-c', type=int, default=0, help='要分析的通道 (0=左, 1=右)')
     waveform_parser.add_argument('--save', '-s', help='保存波形图的文件路径')
     
     # 频谱图分析命令
-    spectrogram_parser = subparsers.add_parser('spectrogram', help='分析并显示音频文件的频谱图')
+    spectrogram_parser = subparsers.add_parser('spectrogram', help='Analyze and display audio file spectrogram')
     spectrogram_parser.add_argument('audio_file', help='要分析的音频文件路径')
     spectrogram_parser.add_argument('--channel', '-c', type=int, default=0, help='要分析的通道 (0=左, 1=右)')
     spectrogram_parser.add_argument('--window', '-w', type=int, help='窗口大小 (默认自动设置)')
@@ -65,7 +65,7 @@ def main(args: Optional[List[str]] = None) -> int:
     spectrogram_parser.add_argument('--save', '-s', help='保存频谱图的文件路径')
     
     # RMS标准化命令
-    normalize_parser = subparsers.add_parser('normalize', help='将音频文件标准化到指定的RMS电平')
+    normalize_parser = subparsers.add_parser('normalize', help='Normalize audio file to specified RMS level')
     normalize_parser.add_argument('input_file', help='输入音频文件路径')
     normalize_parser.add_argument('output_file', help='输出音频文件路径')
     normalize_parser.add_argument('--target', '-t', type=float, default=-20.0, help='目标RMS电平(dB FS)，默认为-20dB')
