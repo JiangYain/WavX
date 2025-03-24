@@ -13,6 +13,19 @@ from scipy.io import wavfile
 import soundfile as sf
 from typing import Dict, Any, Tuple, Optional
 
+# 定义配色方案
+WAVEFORM_COLORS = {
+    "Aqua Gray": "#7FBFBF",
+    "Muted Purple": "#9E91B7",
+    "Olive Green": "#9DB17C",
+    "Soft Coral": "#E1A193",
+    "Slate Blue": "#7A8B99",
+    "Dusty Rose": "#C2A9A1"
+}
+
+# 默认颜色
+DEFAULT_COLOR = WAVEFORM_COLORS["Olive Green"]
+
 def set_plot_style():
     """
     Set plot style using Times New Roman font
@@ -64,7 +77,8 @@ def analyze_waveform(audio_file: str, channel: int = 0) -> Dict[str, Any]:
 
 def plot_waveform(waveform_data: Dict[str, Any],
                   figsize: Tuple[int, int] = (12, 4),
-                  save_path: Optional[str] = None) -> plt.Figure:
+                  save_path: Optional[str] = None,
+                  color: Optional[str] = None) -> plt.Figure:
     """
     Plot audio waveform
 
@@ -72,6 +86,8 @@ def plot_waveform(waveform_data: Dict[str, Any],
         waveform_data: Waveform data from analyze_waveform
         figsize: Figure size
         save_path: If provided, save figure to this path
+        color: Color for the waveform plot. Can be a color name from WAVEFORM_COLORS or any valid matplotlib color.
+               If None, uses DEFAULT_COLOR.
 
     Returns:
         matplotlib figure object
@@ -82,15 +98,26 @@ def plot_waveform(waveform_data: Dict[str, Any],
     # Create figure
     fig = plt.figure(figsize=figsize)
 
+    # Determine plot color
+    plot_color = color if color in WAVEFORM_COLORS else DEFAULT_COLOR
+    if color and color not in WAVEFORM_COLORS:
+        try:
+            # Test if it's a valid matplotlib color
+            plt.plot([0], [0], color=color)
+            plt.close()
+            plot_color = color
+        except:
+            plot_color = DEFAULT_COLOR
+
     # Plot waveform
-    plt.plot(waveform_data['time'], waveform_data['data'])
+    plt.plot(waveform_data['time'], waveform_data['data'], color=plot_color)
 
     # Set title and labels
     audio_file = waveform_data['audio_file'].split("/")[-1]
     plt.title(f"Waveform: {audio_file}", pad=10)
     plt.xlabel("Time [s]")
     plt.ylabel("Amplitude")
-    plt.grid(True)
+    plt.grid(True, alpha=0.3)
 
     # Optimize layout
     plt.tight_layout()
@@ -117,7 +144,8 @@ def print_waveform_info(waveform_data: Dict[str, Any]) -> None:
 def display_waveform(audio_file: str,
                     channel: int = 0,
                     figsize: Tuple[int, int] = (12, 4),
-                    save_path: Optional[str] = None) -> None:
+                    save_path: Optional[str] = None,
+                    color: Optional[str] = None) -> None:
     """
     Analyze and display audio file waveform
 
@@ -126,6 +154,7 @@ def display_waveform(audio_file: str,
         channel: Channel to analyze (0=left, 1=right)
         figsize: Figure size
         save_path: If provided, save figure to this path
+        color: Color for the waveform plot. Can be a color name from WAVEFORM_COLORS or any valid matplotlib color.
     """
     # Analyze waveform
     waveform_data = analyze_waveform(
@@ -140,7 +169,8 @@ def display_waveform(audio_file: str,
     fig = plot_waveform(
         waveform_data=waveform_data,
         figsize=figsize,
-        save_path=save_path
+        save_path=save_path,
+        color=color
     )
 
     plt.show()

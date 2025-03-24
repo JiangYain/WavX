@@ -39,7 +39,8 @@ import matplotlib.pyplot as plt
 fig = wavx.analysis.waveform.plot_waveform(
     waveform_data=waveform_data,
     figsize=(12, 4),     # figure size
-    save_path="waveform.png"  # save to file
+    save_path="waveform.png",  # save to file
+    color="Olive Green"  # use predefined color scheme
 )
 
 # You can add custom modifications here
@@ -48,6 +49,35 @@ plt.legend()
 
 # Display the figure
 plt.show()
+```
+
+## Color Schemes
+
+WavX v0.1.8 introduced predefined color schemes for waveform visualization:
+
+```python
+# Available color schemes:
+wavx.analysis.waveform.plot_waveform(
+    waveform_data=waveform_data,
+    color="Aqua Gray"    # use this color scheme
+)
+
+# Available colors:
+# - "Aqua Gray": "#7FBFBF"
+# - "Muted Purple": "#9E91B7"
+# - "Olive Green": "#9DB17C" (default)
+# - "Soft Coral": "#E1A193"
+# - "Slate Blue": "#7A8B99"
+# - "Dusty Rose": "#C2A9A1"
+```
+
+You can also use direct hex color codes:
+
+```python
+wavx.analysis.waveform.plot_waveform(
+    waveform_data=waveform_data,
+    color="#FF5733"  # custom hex color
+)
 ```
 
 ## Command Line Usage
@@ -60,6 +90,9 @@ wavx waveform your_audio_file.wav
 
 # With parameters
 wavx waveform your_audio_file.wav --channel 1 --save output.png
+
+# With color scheme
+wavx waveform your_audio_file.wav --color "Soft Coral"
 ```
 
 ## API Reference
@@ -82,7 +115,7 @@ Analyzes the waveform of an audio file.
 ### plot_waveform
 
 ```python
-plot_waveform(waveform_data, figsize=(12, 4), save_path=None)
+plot_waveform(waveform_data, figsize=(12, 4), save_path=None, color="Olive Green")
 ```
 
 Plots the audio waveform.
@@ -91,6 +124,7 @@ Plots the audio waveform.
 - `waveform_data` (dict): Waveform data from analyze_waveform
 - `figsize` (tuple): Figure size
 - `save_path` (str, optional): If provided, save figure to this path
+- `color` (str): Color scheme name or hex color code
 
 **Returns:**
 - matplotlib figure object
@@ -98,7 +132,7 @@ Plots the audio waveform.
 ### display_waveform
 
 ```python
-display_waveform(audio_file, channel=0, figsize=(12, 4), save_path=None)
+display_waveform(audio_file, channel=0, figsize=(12, 4), save_path=None, color="Olive Green")
 ```
 
 Analyzes and displays the waveform of an audio file (all-in-one function).
@@ -108,6 +142,7 @@ Analyzes and displays the waveform of an audio file (all-in-one function).
 - `channel` (int): Channel to analyze (0=left, 1=right)
 - `figsize` (tuple): Figure size
 - `save_path` (str, optional): If provided, save figure to this path
+- `color` (str): Color scheme name or hex color code
 
 **Returns:**
 - A dictionary containing waveform data 

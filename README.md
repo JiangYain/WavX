@@ -1,5 +1,7 @@
 # WavX
 
+[English](#wavx) | [中文](#wavx-1)
+
 WavX is a Python library for audio analysis and processing, providing a simple yet powerful API for handling various audio-related tasks.
 
 ## Features
@@ -56,9 +58,18 @@ import matplotlib.pyplot as plt
 fig = wavx.analysis.waveform.plot_waveform(
     waveform_data=waveform_data,
     figsize=(12, 4),     # figure size
-    save_path="waveform.png"  # save to file
+    save_path="waveform.png",  # save to file
+    color="Aqua Gray"    # use predefined color scheme
 )
 plt.show()
+
+# Available colors:
+# - "Aqua Gray": "#7FBFBF"
+# - "Muted Purple": "#9E91B7"
+# - "Olive Green": "#9DB17C" (default)
+# - "Soft Coral": "#E1A193"
+# - "Slate Blue": "#7A8B99"
+# - "Dusty Rose": "#C2A9A1"
 ```
 
 ### Generate and display audio spectrogram
@@ -74,7 +85,7 @@ wavx.analysis.spectrogram.display_spectrogram("your_audio_file.wav")
 spec_data = wavx.analysis.spectrogram.analyze_spectrogram(
     audio_file="your_audio_file.wav",
     channel=0,  # 0=left channel, 1=right channel
-    window_size=None,  # auto window size
+    window_size=1024,  # window size
     overlap=0.75  # 75% window overlap
 )
 
@@ -87,7 +98,7 @@ fig = wavx.analysis.spectrogram.plot_spectrogram(
     spec_data=spec_data,
     use_log_scale=True,  # use dB scale
     freq_limit=8000,     # limit to 8kHz
-    figsize=(12, 4),     # figure size
+    figsize=(10, 3.5),   # figure size
     save_path="spectrogram.png"  # save to file
 )
 plt.show()
@@ -196,7 +207,8 @@ The modular design allows easy extensions:
 
 ## Release Notes
 
-- v0.1.7 (2025-03-24): Version control upgrade
+- v0.1.8 (2025-03-24): Version control upgrade
+- v0.1.8 (2025-03-26): Added waveform color schemes and optimized spectrogram display
 - v0.1.7 (2025-03-25): Enhanced waveform CLI support and documentation
 - v0.1.6 (2025-03-24): Version control upgrade
 - v0.1.5 (2025-03-22): Added waveform visualization functionality
@@ -212,4 +224,174 @@ Contributions to the code, questions, or suggestions are welcome!
 
 ## License
 
-MIT License 
+MIT License
+
+---
+
+# WavX
+
+WavX 是一个用于音频分析和处理的Python库，提供简单而强大的API来处理各种音频相关任务。
+
+## 特性
+
+- 音频文件分析，包括振幅、响度和声学参数测量
+- 音频处理，包括RMS电平标准化
+- 模块化设计，易于扩展
+- 简洁直观的API接口
+
+## 安装
+
+```bash
+pip install wavx
+```
+
+## 快速开始
+
+### 分析音频文件振幅信息
+
+```python
+import wavx
+
+# 分析音频文件并获取振幅信息
+amplitude_info = wavx.analysis.amplitude.analyze_amplitude("your_audio_file.wav")
+
+# 打印所有振幅信息
+wavx.analysis.amplitude.print_amplitude_info(amplitude_info)
+
+# 或者获取特定信息
+print(f"峰值幅度: {amplitude_info['peak_amplitude']} dB")
+print(f"总计 RMS 振幅: {amplitude_info['total_rms_amplitude']} dB")
+```
+
+### 生成并显示音频波形图
+
+```python
+import wavx
+
+# 简单方式：一步完成波形图显示
+wavx.analysis.waveform.display_waveform("your_audio_file.wav")
+
+# 高级方式：分步骤进行，获得更多控制
+# 1. 分析波形数据
+waveform_data = wavx.analysis.waveform.analyze_waveform(
+    audio_file="your_audio_file.wav",
+    channel=0  # 0=左声道, 1=右声道
+)
+
+# 2. 打印波形信息
+wavx.analysis.waveform.print_waveform_info(waveform_data)
+
+# 3. 使用自定义设置绘制波形图
+import matplotlib.pyplot as plt
+fig = wavx.analysis.waveform.plot_waveform(
+    waveform_data=waveform_data,
+    figsize=(12, 4),     # 图形大小
+    save_path="waveform.png",  # 保存到文件
+    color="Aqua Gray"    # 使用预定义配色
+)
+plt.show()
+
+# 可用颜色：
+# - "Aqua Gray": "#7FBFBF"
+# - "Muted Purple": "#9E91B7"
+# - "Olive Green": "#9DB17C" (默认)
+# - "Soft Coral": "#E1A193"
+# - "Slate Blue": "#7A8B99"
+# - "Dusty Rose": "#C2A9A1"
+```
+
+### 生成并显示音频频谱图
+
+```python
+import wavx
+
+# 简单方式：一步完成频谱图显示
+wavx.analysis.spectrogram.display_spectrogram("your_audio_file.wav")
+
+# 高级方式：分步骤进行，获得更多控制
+# 1. 分析频谱图数据
+spec_data = wavx.analysis.spectrogram.analyze_spectrogram(
+    audio_file="your_audio_file.wav",
+    channel=0,  # 0=左声道, 1=右声道
+    window_size=1024,  # 窗口大小
+    overlap=0.75  # 75%窗口重叠
+)
+
+# 2. 打印频谱图信息
+wavx.analysis.spectrogram.print_spectrogram_info(spec_data)
+
+# 3. 使用自定义设置绘制频谱图
+import matplotlib.pyplot as plt
+fig = wavx.analysis.spectrogram.plot_spectrogram(
+    spec_data=spec_data,
+    use_log_scale=True,  # 使用分贝刻度
+    freq_limit=8000,     # 限制到8kHz
+    figsize=(10, 3.5),   # 图形大小
+    save_path="spectrogram.png"  # 保存到文件
+)
+plt.show()
+```
+
+### 将音频文件标准化到目标RMS电平
+
+```python
+import wavx
+
+# 将音频文件标准化到 -20 dB FS
+result = wavx.processing.normalization.normalize_to_target(
+    input_file="input.wav",
+    output_file="output.wav",
+    target_rms_db=-20.0,
+    reference_type="square"  # 或 "sine"
+)
+
+# 打印标准化信息
+wavx.processing.normalization.print_normalization_info(result)
+```
+
+## 命令行使用
+
+安装后，可以从命令行使用WavX：
+
+```bash
+# 基本振幅分析
+wavx amplitude path/to/audio.wav
+
+# 生成并显示波形图
+wavx waveform path/to/audio.wav
+
+# 带自定义参数的波形图
+wavx waveform path/to/audio.wav --channel 1 --save output.png
+
+# 生成并显示频谱图
+wavx spectrogram path/to/audio.wav
+
+# 带自定义参数的频谱图
+wavx spectrogram path/to/audio.wav --channel 1 --freq-limit 5000 --save output.png
+
+# RMS标准化
+wavx normalize input.wav output.wav --target -18.0
+
+# 使用自定义参考信号
+wavx normalize input.wav output.wav --reference sine --freq 500
+```
+
+## 发布说明
+
+- v0.1.8 (2025-03-26): 添加波形图配色方案和优化频谱图显示
+- v0.1.7 (2025-03-25): 增强波形图命令行支持和文档
+- v0.1.6 (2025-03-24): 版本控制升级
+- v0.1.5 (2025-03-22): 添加波形图可视化功能
+- v0.1.4 (2025-03-21): 添加频谱图分析和可视化功能
+- v0.1.3 (2025-03-20): 添加pip安装后显示WAVX LOGO功能
+- v0.1.2 (2025-03-20): 添加RMS标准化功能
+- v0.1.1 (2025-03-20): 添加文档目录和双语README文件
+- v0.1.0 (2025-03-20): 初始版本，包含振幅分析功能
+
+## 贡献
+
+欢迎对代码贡献、提问或提出改进建议！
+
+## 许可证
+
+MIT 许可证 

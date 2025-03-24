@@ -61,9 +61,12 @@ def analyze_spectrogram(audio_file: str,
             channel = 0  # 如果指定的通道不可用，默认使用第一个
         data = data[:, channel]
 
+    # 数据归一化，避免爆炸音高亮过多
+    data = data / np.max(np.abs(data))
+
     # 使用默认窗口参数
     if window_size is None:
-        window_size = 256  # 使用scipy.signal.spectrogram的默认值
+        window_size = 1024  # 使用1024作为默认窗口大小
 
     # 计算频谱
     frequencies, times, Sxx = signal.spectrogram(
@@ -89,10 +92,10 @@ def analyze_spectrogram(audio_file: str,
 def plot_spectrogram(spec_data: Dict[str, Any], 
                      use_log_scale: bool = True,
                      freq_limit: Optional[int] = None,
-                     figsize: Tuple[int, int] = (12, 4),
+                     figsize: Tuple[int, int] = (10, 3.5),
                      save_path: Optional[str] = None,
-                     vmin: float = -100,  # 添加最小值参数
-                     vmax: float = -50    # 添加最大值参数
+                     vmin: float = -100,  # 修改最小值
+                     vmax: float = 0      # 修改最大值
                      ) -> plt.Figure:
     """
     Plot spectrogram of audio data
@@ -129,7 +132,7 @@ def plot_spectrogram(spec_data: Dict[str, Any],
     if use_log_scale:
         # 加入1e-10防止log(0)
         display_data = 10 * np.log10(Sxx + 1e-10)
-        colorbar_label = 'Intensity [dB]'  # 改为 Intensity
+        colorbar_label = 'Intensity [dB]'
     else:
         display_data = Sxx
         colorbar_label = 'Intensity'
@@ -139,13 +142,13 @@ def plot_spectrogram(spec_data: Dict[str, Any],
                   shading='gouraud',
                   vmin=vmin,
                   vmax=vmax)
-    plt.colorbar(label=colorbar_label)
+    plt.colorbar(label=colorbar_label, pad=0.02)
     
     # 设置标题和标签
     audio_file = spec_data['audio_file'].split("/")[-1]
     plt.title(f"Spectrogram: {audio_file}", pad=10)
-    plt.xlabel("Time [s]")
-    plt.ylabel("Frequency [Hz]")
+    plt.xlabel("Time [s]", labelpad=1.0)
+    plt.ylabel("Frequency [Hz]", labelpad=1.0)
     
     # 优化布局
     plt.tight_layout()
