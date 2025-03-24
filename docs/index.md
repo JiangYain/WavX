@@ -9,6 +9,7 @@ WavX is a Python library for audio analysis and processing, providing a simple y
 ### Available Modules
 
 - [Amplitude Analysis](./amplitude/amplitude_analysis.md) - Tools for analyzing audio amplitude and loudness
+- [Spectrogram Analysis](./analysis/spectrogram.md) - Tools for spectral analysis and visualization
 - [RMS Normalization](./processing/normalization.md) - Tools for normalizing audio files to a target RMS level
 
 ### Installation
@@ -81,6 +82,7 @@ Contributions to the code, questions, or suggestions are welcome! Please refer t
 - v0.1.1 (2025-03-20): Added docs directory and bilingual README files
 - v0.1.2 (2025-03-20): Added RMS normalization functionality
 - v0.1.3 (2025-03-20): Added WAVX LOGO display after pip install
+- v0.1.4 (2025-03-21): Added spectrogram analysis and visualization
 
 ---
 
@@ -91,6 +93,7 @@ WavX 是一个用于音频分析和处理的Python库，提供简单而强大的
 ### 可用模块
 
 - [振幅分析](./amplitude/amplitude_analysis.md) - 用于分析音频振幅和响度的工具
+- [频谱图分析](./analysis/spectrogram.md) - 用于频谱分析和可视化的工具
 - [RMS标准化](./processing/normalization.md) - 用于将音频文件标准化到目标RMS电平的工具
 
 ### 安装
@@ -163,3 +166,4 @@ wavx/
 - v0.1.1 (2025-03-20): 添加docs目录和双语README文件
 - v0.1.2 (2025-03-20): 添加RMS标准化功能
 - v0.1.3 (2025-03-20): 添加pip安装后显示WAVX LOGO功能
+- v0.1.4 (2025-03-21): 添加频谱图分析和可视化功能

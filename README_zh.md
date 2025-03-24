@@ -127,11 +127,12 @@ wavx normalize input.wav output.wav --reference sine --freq 500
 - v0.1.1 (2025-03-20): 添加文档目录和双语README文件
 - v0.1.2 (2025-03-20): 添加RMS标准化功能
 - v0.1.3 (2025-03-20): 添加pip安装后显示WAVX LOGO功能
+- v0.1.4 (2025-03-21): 添加频谱图分析和可视化功能
 
 ## 贡献
 
-欢迎对代码贡献、提问或提出改进建议！
+欢迎对代码贡献、提问或提出改进建议！请参阅[CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## 许可证
 
-MIT 许可证 
+MIT 许可证   

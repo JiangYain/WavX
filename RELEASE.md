@@ -125,14 +125,14 @@ pip install --upgrade setuptools wheel twine
 ### 2. 准备发布
 
 1. 更新以下文件中的版本号：
-   - `wavx/__init__.py`
-   - `setup.py`
+   - `wavx/__init__.py`：将 `__version__ = '0.1.3'` 改为 `__version__ = '0.1.4'`
+   - `setup.py`：将 `version="0.1.3"` 改为 `version="0.1.4"`
    - 如果需要，更新文档和 README 文件
 
 2. 更新以下文件中的发布说明：
-   - `README.md`
-   - `README_zh.md` 
-   - `docs/index.md`
+   - `README.md`：添加 `- v0.1.4 (2025-03-21): Added spectrogram analysis and visualization` 
+   - `README_zh.md`：添加 `- v0.1.4 (2025-03-21): 添加频谱图分析和可视化功能`
+   - `docs/index.md`：添加相应的英文和中文版本历史
 
 3. 确保所有测试通过：
    ```bash

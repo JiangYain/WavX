@@ -13,6 +13,7 @@ from typing import List, Optional
 
 from . import __version__
 from .analysis import amplitude
+from .analysis import spectrogram
 from .processing import normalization
 from .utils.logo import print_logo
 
@@ -45,6 +46,16 @@ def main(args: Optional[List[str]] = None) -> int:
     amplitude_parser.add_argument('audio_file', help='要分析的音频文件路径')
     amplitude_parser.add_argument('--window', type=float, default=50.0, help='RMS窗口大小(毫秒)')
     amplitude_parser.add_argument('--no-dc', action='store_false', dest='consider_dc', help='不考虑DC偏移')
+    
+    # 频谱图分析命令
+    spectrogram_parser = subparsers.add_parser('spectrogram', help='分析并显示音频文件的频谱图')
+    spectrogram_parser.add_argument('audio_file', help='要分析的音频文件路径')
+    spectrogram_parser.add_argument('--channel', '-c', type=int, default=0, help='要分析的通道 (0=左, 1=右)')
+    spectrogram_parser.add_argument('--window', '-w', type=int, help='窗口大小 (默认自动设置)')
+    spectrogram_parser.add_argument('--overlap', '-o', type=float, default=0.75, help='窗口重叠比例 (0.0-1.0)')
+    spectrogram_parser.add_argument('--linear', action='store_false', dest='log_scale', help='使用线性刻度而不是对数刻度')
+    spectrogram_parser.add_argument('--freq-limit', '-f', type=int, help='频率上限 (Hz)')
+    spectrogram_parser.add_argument('--save', '-s', help='保存频谱图的文件路径')
     
     # RMS标准化命令
     normalize_parser = subparsers.add_parser('normalize', help='将音频文件标准化到指定的RMS电平')
@@ -83,6 +94,33 @@ def main(args: Optional[List[str]] = None) -> int:
             
             # 打印结果
             amplitude.print_amplitude_info(info)
+            
+        except Exception as e:
+            print(f"错误: {e}", file=sys.stderr)
+            return 1
+    
+    elif parsed_args.command == 'spectrogram':
+        try:
+            # 分析并显示频谱图
+            print(f"分析音频文件: {parsed_args.audio_file}")
+            print(f"通道: {parsed_args.channel}")
+            print(f"使用对数刻度: {parsed_args.log_scale}")
+            if parsed_args.freq_limit:
+                print(f"频率上限: {parsed_args.freq_limit} Hz")
+            if parsed_args.save:
+                print(f"保存到: {parsed_args.save}")
+            print("正在生成频谱图...")
+            
+            # 调用频谱图函数
+            spectrogram.display_spectrogram(
+                audio_file=parsed_args.audio_file,
+                channel=parsed_args.channel,
+                window_size=parsed_args.window,
+                overlap=parsed_args.overlap,
+                use_log_scale=parsed_args.log_scale,
+                freq_limit=parsed_args.freq_limit,
+                save_path=parsed_args.save
+            )
             
         except Exception as e:
             print(f"错误: {e}", file=sys.stderr)
