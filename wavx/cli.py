@@ -14,6 +14,7 @@ from typing import List, Optional
 from . import __version__
 from .analysis import amplitude
 from .processing import normalization
+from .utils.logo import print_logo
 
 
 def main(args: Optional[List[str]] = None) -> int:
@@ -58,8 +59,9 @@ def main(args: Optional[List[str]] = None) -> int:
     # 解析参数
     parsed_args = parser.parse_args(args)
     
-    # 如果没有提供命令，显示帮助信息
+    # 如果没有提供命令，显示LOGO和帮助信息
     if not parsed_args.command:
+        print_logo()
         parser.print_help()
         return 0
     

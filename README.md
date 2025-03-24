@@ -126,6 +126,7 @@ The modular design allows easy extensions:
 - v0.1.0 (2025-03-20): Initial release with amplitude analysis functionality
 - v0.1.1 (2025-03-20): Added docs directory and bilingual README files
 - v0.1.2 (2025-03-20): Added RMS normalization functionality
+- v0.1.3 (2025-03-20): Added WAVX LOGO display after pip install
 
 ## Contributing
 

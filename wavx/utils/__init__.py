@@ -8,4 +8,4 @@ WavX 工具模块
 """
 
 # 在此导入各种实用工具
-# 目前为空，等待未来实现
+from .logo import print_logo, print_install_message

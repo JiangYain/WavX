@@ -80,6 +80,7 @@ Contributions to the code, questions, or suggestions are welcome! Please refer t
 - v0.1.0 (2025-03-20): Initial release with amplitude analysis functionality
 - v0.1.1 (2025-03-20): Added docs directory and bilingual README files
 - v0.1.2 (2025-03-20): Added RMS normalization functionality
+- v0.1.3 (2025-03-20): Added WAVX LOGO display after pip install
 
 ---
 
@@ -161,3 +162,4 @@ wavx/
 - v0.1.0 (2025-03-20): 初始版本，包含振幅分析功能
 - v0.1.1 (2025-03-20): 添加docs目录和双语README文件
 - v0.1.2 (2025-03-20): 添加RMS标准化功能
+- v0.1.3 (2025-03-20): 添加pip安装后显示WAVX LOGO功能

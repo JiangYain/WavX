@@ -10,7 +10,7 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="wavx",
-    version="0.1.2",
+    version="0.1.3",
     description="音频分析和处理工具库",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -28,6 +28,7 @@ setup(
     entry_points={
         'console_scripts': [
             'wavx=wavx.cli:main',
+            'wavx-welcome=scripts:post_install',
         ],
     },
     classifiers=[
