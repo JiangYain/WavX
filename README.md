@@ -196,6 +196,7 @@ The modular design allows easy extensions:
 
 ## Release Notes
 
+- v0.1.6 (2025-03-24): Version control upgrade
 - v0.1.0 (2025-03-20): Initial release with amplitude analysis functionality
 - v0.1.1 (2025-03-20): Added docs directory and bilingual README files
 - v0.1.2 (2025-03-20): Added RMS normalization functionality
