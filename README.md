@@ -196,13 +196,15 @@ The modular design allows easy extensions:
 
 ## Release Notes
 
+- v0.1.7 (2025-03-24): Version control upgrade
+- v0.1.7 (2025-03-25): Enhanced waveform CLI support and documentation
 - v0.1.6 (2025-03-24): Version control upgrade
-- v0.1.0 (2025-03-20): Initial release with amplitude analysis functionality
-- v0.1.1 (2025-03-20): Added docs directory and bilingual README files
-- v0.1.2 (2025-03-20): Added RMS normalization functionality
-- v0.1.3 (2025-03-20): Added WAVX LOGO display after pip install
-- v0.1.4 (2025-03-21): Added spectrogram analysis and visualization
 - v0.1.5 (2025-03-22): Added waveform visualization functionality
+- v0.1.4 (2025-03-21): Added spectrogram analysis and visualization
+- v0.1.3 (2025-03-20): Added WAVX LOGO display after pip install
+- v0.1.2 (2025-03-20): Added RMS normalization functionality
+- v0.1.1 (2025-03-20): Added docs directory and bilingual README files
+- v0.1.0 (2025-03-20): Initial release with amplitude analysis functionality
 
 ## Contributing
 

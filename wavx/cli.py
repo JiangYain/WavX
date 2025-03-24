@@ -14,6 +14,7 @@ from typing import List, Optional
 from . import __version__
 from .analysis import amplitude
 from .analysis import spectrogram
+from .analysis import waveform
 from .processing import normalization
 from .utils.logo import print_logo
 
@@ -46,6 +47,12 @@ def main(args: Optional[List[str]] = None) -> int:
     amplitude_parser.add_argument('audio_file', help='要分析的音频文件路径')
     amplitude_parser.add_argument('--window', type=float, default=50.0, help='RMS窗口大小(毫秒)')
     amplitude_parser.add_argument('--no-dc', action='store_false', dest='consider_dc', help='不考虑DC偏移')
+    
+    # 波形图命令
+    waveform_parser = subparsers.add_parser('waveform', help='分析并显示音频文件的波形图')
+    waveform_parser.add_argument('audio_file', help='要分析的音频文件路径')
+    waveform_parser.add_argument('--channel', '-c', type=int, default=0, help='要分析的通道 (0=左, 1=右)')
+    waveform_parser.add_argument('--save', '-s', help='保存波形图的文件路径')
     
     # 频谱图分析命令
     spectrogram_parser = subparsers.add_parser('spectrogram', help='分析并显示音频文件的频谱图')
@@ -94,6 +101,26 @@ def main(args: Optional[List[str]] = None) -> int:
             
             # 打印结果
             amplitude.print_amplitude_info(info)
+            
+        except Exception as e:
+            print(f"错误: {e}", file=sys.stderr)
+            return 1
+    
+    elif parsed_args.command == 'waveform':
+        try:
+            # 分析并显示波形图
+            print(f"分析音频文件: {parsed_args.audio_file}")
+            print(f"通道: {parsed_args.channel}")
+            if parsed_args.save:
+                print(f"保存到: {parsed_args.save}")
+            print("正在生成波形图...")
+            
+            # 调用波形图函数
+            waveform.display_waveform(
+                audio_file=parsed_args.audio_file,
+                channel=parsed_args.channel,
+                save_path=parsed_args.save
+            )
             
         except Exception as e:
             print(f"错误: {e}", file=sys.stderr)

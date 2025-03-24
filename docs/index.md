@@ -10,6 +10,7 @@ WavX is a Python library for audio analysis and processing, providing a simple y
 
 - [Amplitude Analysis](./amplitude/amplitude_analysis.md) - Tools for analyzing audio amplitude and loudness
 - [Spectrogram Analysis](./analysis/spectrogram.md) - Tools for spectral analysis and visualization
+- [Waveform Visualization](./analysis/waveform.md) - Tools for audio waveform visualization
 - [RMS Normalization](./processing/normalization.md) - Tools for normalizing audio files to a target RMS level
 
 ### Installation
@@ -29,6 +30,12 @@ amplitude_info = wavx.analysis.amplitude.analyze_amplitude("your_audio_file.wav"
 # Print all amplitude information
 wavx.analysis.amplitude.print_amplitude_info(amplitude_info)
 
+# Generate and display waveform
+wavx.analysis.waveform.display_waveform("your_audio_file.wav")
+
+# Generate and display spectrogram
+wavx.analysis.spectrogram.display_spectrogram("your_audio_file.wav")
+
 # Normalize audio file to target RMS
 normalization_info = wavx.processing.normalization.normalize_to_target(
     "input.wav",
@@ -47,6 +54,12 @@ wavx --help
 
 # Analyze amplitude
 wavx amplitude your_audio_file.wav
+
+# Generate and display waveform
+wavx waveform your_audio_file.wav
+
+# Generate and display spectrogram
+wavx spectrogram your_audio_file.wav
 
 # Normalize audio
 wavx normalize input.wav output.wav --target -18.0
@@ -78,11 +91,13 @@ Contributions to the code, questions, or suggestions are welcome! Please refer t
 
 ### Version History
 
-- v0.1.0 (2025-03-20): Initial release with amplitude analysis functionality
-- v0.1.1 (2025-03-20): Added docs directory and bilingual README files
-- v0.1.2 (2025-03-20): Added RMS normalization functionality
-- v0.1.3 (2025-03-20): Added WAVX LOGO display after pip install
+- v0.1.6 (2025-03-24): Version control upgrade
+- v0.1.5 (2025-03-22): Added waveform visualization functionality
 - v0.1.4 (2025-03-21): Added spectrogram analysis and visualization
+- v0.1.3 (2025-03-20): Added WAVX LOGO display after pip install
+- v0.1.2 (2025-03-20): Added RMS normalization functionality
+- v0.1.1 (2025-03-20): Added docs directory and bilingual README files
+- v0.1.0 (2025-03-20): Initial release with amplitude analysis functionality
 
 ---
 
@@ -94,6 +109,7 @@ WavX 是一个用于音频分析和处理的Python库，提供简单而强大的
 
 - [振幅分析](./amplitude/amplitude_analysis.md) - 用于分析音频振幅和响度的工具
 - [频谱图分析](./analysis/spectrogram.md) - 用于频谱分析和可视化的工具
+- [波形图可视化](./analysis/waveform.md) - 用于音频波形可视化的工具
 - [RMS标准化](./processing/normalization.md) - 用于将音频文件标准化到目标RMS电平的工具
 
 ### 安装
@@ -113,6 +129,12 @@ amplitude_info = wavx.analysis.amplitude.analyze_amplitude("your_audio_file.wav"
 # 打印所有振幅信息
 wavx.analysis.amplitude.print_amplitude_info(amplitude_info)
 
+# 生成并显示波形图
+wavx.analysis.waveform.display_waveform("your_audio_file.wav")
+
+# 生成并显示频谱图
+wavx.analysis.spectrogram.display_spectrogram("your_audio_file.wav")
+
 # 将音频文件标准化到目标RMS电平
 normalization_info = wavx.processing.normalization.normalize_to_target(
     "input.wav",
@@ -131,6 +153,12 @@ wavx --help
 
 # 分析振幅
 wavx amplitude your_audio_file.wav
+
+# 生成并显示波形图
+wavx waveform your_audio_file.wav
+
+# 生成并显示频谱图
+wavx spectrogram your_audio_file.wav
 
 # 标准化音频
 wavx normalize input.wav output.wav --target -18.0
@@ -162,8 +190,10 @@ wavx/
 
 ### 版本历史
 
-- v0.1.0 (2025-03-20): 初始版本，包含振幅分析功能
-- v0.1.1 (2025-03-20): 添加docs目录和双语README文件
-- v0.1.2 (2025-03-20): 添加RMS标准化功能
-- v0.1.3 (2025-03-20): 添加pip安装后显示WAVX LOGO功能
+- v0.1.6 (2025-03-24): 版本控制升级
+- v0.1.5 (2025-03-22): 添加波形图可视化功能
 - v0.1.4 (2025-03-21): 添加频谱图分析和可视化功能
+- v0.1.3 (2025-03-20): 添加pip安装后显示WAVX LOGO功能
+- v0.1.2 (2025-03-20): 添加RMS标准化功能
+- v0.1.1 (2025-03-20): 添加docs目录和双语README文件
+- v0.1.0 (2025-03-20): 初始版本，包含振幅分析功能
