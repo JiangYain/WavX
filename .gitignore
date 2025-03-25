@@ -72,3 +72,12 @@ Thumbs.db
 .github_token
 # PyPI令牌文件
 .pypi_token
+
+# 排除的工具脚本文件
+build_and_upload.py
+clean_git_history.py
+github_upload.py
+
+# 排除的文件夹
+html/
+**/html/

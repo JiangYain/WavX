@@ -87,7 +87,7 @@ wavx/
 
 ### Contributing
 
-Contributions to the code, questions, or suggestions are welcome! Please refer to the [GitHub repository](https://github.com/yourusername/wavx) for more information.
+Contributions to the code, questions, or suggestions are welcome! Please refer to the [GitHub repository](https://github.com/JiangYain/WavX) for more information.
 
 ### Version History
 
@@ -186,7 +186,7 @@ wavx/
 
 ### 贡献
 
-欢迎对代码贡献、提问或提出改进建议！请参考[GitHub仓库](https://github.com/yourusername/wavx)获取更多信息。
+欢迎对代码贡献、提问或提出改进建议！请参考[GitHub仓库](https://github.com/JiangYain/WavX)获取更多信息。
 
 ### 版本历史
 

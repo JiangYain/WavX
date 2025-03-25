@@ -15,7 +15,7 @@ Please be respectful and considerate of others when contributing to this project
 1. Fork the repository
 2. Clone your fork:
    ```bash
-   git clone https://github.com/yourusername/wavx.git
+   git clone https://github.com/JiangYain/WavX.git
    cd wavx
    ```
 3. Install development dependencies:
@@ -94,7 +94,7 @@ Please be respectful and considerate of others when contributing to this project
 1. Fork 这个仓库
 2. 克隆你的 fork：
    ```bash
-   git clone https://github.com/yourusername/wavx.git
+   git clone https://github.com/JiangYain/WavX.git
    cd wavx
    ```
 3. 安装开发依赖：

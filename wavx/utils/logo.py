@@ -37,5 +37,5 @@ def print_install_message():
     打印安装完成后的欢迎消息和LOGO
     """
     print_logo()
-    print("文档: https://github.com/chord-chord/wavx")
+    print("文档: https://github.com/JiangYain/WavX")
     print("使用 'wavx --help' 查看命令行工具的使用方法")

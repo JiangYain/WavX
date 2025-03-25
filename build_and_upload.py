@@ -121,7 +121,7 @@ def upload_to_pypi():
 def main():
     """主函数"""
     # 获取新版本号
-    new_version = input("请输入新的版本号 (例如 0.1.6): ").strip()
+    new_version = input("请输入新的版本号 (x.y.z): ").strip()
     if not re.match(r'^\d+\.\d+\.\d+$', new_version):
         print("错误：版本号格式不正确，应为 x.y.z 格式")
         return

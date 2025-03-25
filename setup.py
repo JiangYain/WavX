@@ -10,13 +10,13 @@ with open("README.md", "r", encoding="utf-8") as f:
 
 setup(
     name="wavx",
-    version="0.1.9",
+    version="0.1.10",
     description="音频分析和处理工具库",
     long_description=long_description,
     long_description_content_type="text/markdown",
     author="Chord",
     author_email="chordjiang@gmail.com",
-    url="https://github.com/chord-chord/wavx",
+    url="https://github.com/JiangYain/WavX",
     packages=find_packages(),
     install_requires=[
         "numpy>=1.19.0",
@@ -37,15 +37,15 @@ setup(
         "Intended Audience :: Science/Research",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
-        "Programming Language :: Python :: 3.8",
-        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Topic :: Multimedia :: Sound/Audio :: Analysis",
     ],
     python_requires=">=3.7",
     project_urls={
-        "Bug Tracker": "https://github.com/yourusername/wavx/issues",
-        "Documentation": "https://github.com/yourusername/wavx/tree/main/docs",
-        "Source Code": "https://github.com/yourusername/wavx",
+        "Bug Tracker": "https://github.com/JiangYain/WavX/issues",
+        "Documentation": "https://github.com/JiangYain/WavX/tree/main/docs",
+        "Source Code": "https://github.com/JiangYain/WavX",
     },
 )

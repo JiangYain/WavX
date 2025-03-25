@@ -207,9 +207,10 @@ The modular design allows easy extensions:
 
 ## Release Notes
 
-- v0.1.9 (2025-03-24): Version control upgrade
-- v0.1.9 (2025-03-26): Added bilingual CLI descriptions and optimized documentation
-- v0.1.8 (2025-03-26): Added waveform color schemes and optimized spectrogram display
+- v0.1.10 (2025-03-25): Version control upgrade
+- v0.1.10 (2025-03-25): Added some unimportant content
+- v0.1.9 (2025-03-25): Added bilingual CLI descriptions and optimized documentation
+- v0.1.8 (2025-03-25): Added waveform color schemes and optimized spectrogram display
 - v0.1.7 (2025-03-25): Enhanced waveform CLI support and documentation
 - v0.1.6 (2025-03-24): Version control upgrade
 - v0.1.5 (2025-03-22): Added waveform visualization functionality
@@ -378,9 +379,9 @@ wavx normalize input.wav output.wav --reference sine --freq 500
 ```
 
 ## 发布说明
-
-- v0.1.9 (2025-03-26): 添加命令行工具双语描述和优化文档
-- v0.1.8 (2025-03-26): 添加波形图配色方案和优化频谱图显示
+- v0.1.10 (2025-03-25): 修改了一些无关紧要的内容
+- v0.1.9 (2025-03-25): 添加命令行工具双语描述和优化文档
+- v0.1.8 (2025-03-25): 添加波形图配色方案和优化频谱图显示
 - v0.1.7 (2025-03-25): 增强波形图命令行支持和文档
 - v0.1.6 (2025-03-24): 版本控制升级
 - v0.1.5 (2025-03-22): 添加波形图可视化功能
