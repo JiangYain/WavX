@@ -2,7 +2,7 @@
 
 [English](#wavx) | [中文](#wavx-1)
 
-WavX is a Python library for audio analysis and processing, providing a simple yet powerful API for handling various audio-related tasks.
+WavX is a Python library for audio analysis and processing, providing a simple API for handling various audio-related tasks.
 
 ## Features
 
@@ -232,7 +232,7 @@ MIT License
 
 # WavX
 
-WavX 是一个用于音频分析和处理的Python库，提供简单而强大的API来处理各种音频相关任务。
+WavX 是一个用于音频分析和处理的Python库，提供简单的API来处理各种音频相关任务。
 
 ## 特性
 
@@ -272,35 +272,6 @@ import wavx
 
 # 简单方式：一步完成波形图显示
 wavx.analysis.waveform.display_waveform("your_audio_file.wav")
-
-# 高级方式：分步骤进行，获得更多控制
-# 1. 分析波形数据
-waveform_data = wavx.analysis.waveform.analyze_waveform(
-    audio_file="your_audio_file.wav",
-    channel=0  # 0=左声道, 1=右声道
-)
-
-# 2. 打印波形信息
-wavx.analysis.waveform.print_waveform_info(waveform_data)
-
-# 3. 使用自定义设置绘制波形图
-import matplotlib.pyplot as plt
-fig = wavx.analysis.waveform.plot_waveform(
-    waveform_data=waveform_data,
-    figsize=(12, 4),     # 图形大小
-    save_path="waveform.png",  # 保存到文件
-    color="Aqua Gray"    # 使用预定义配色
-)
-plt.show()
-
-# 可用颜色：
-# - "Aqua Gray": "#7FBFBF"
-# - "Muted Purple": "#9E91B7"
-# - "Olive Green": "#9DB17C" (默认)
-# - "Soft Coral": "#E1A193"
-# - "Slate Blue": "#7A8B99"
-# - "Dusty Rose": "#C2A9A1"
-```
 
 ### 生成并显示音频频谱图
 
